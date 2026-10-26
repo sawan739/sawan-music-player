@@ -1,0 +1,10 @@
+{
+  "name": "Sawan Music",
+  "short_name": "Sawan",
+  "description": "Feel every drop — Sawan's personal music streaming app.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05060b",
+  "theme_color": "#05060b",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

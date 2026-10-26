@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Design tokens ------------------------------------------------------ */
+:root {
+  color-scheme: dark;
+  /* Accent follows the playing track's artwork (set by <AmbientBackground/>). */
+  --accent: 62 232 208;
+  --accent-2: 139 92 246;
+  --player-h: 0px;
+}
+
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; }
+  body {
+    @apply bg-ink-950 font-sans text-mist antialiased;
+    overscroll-behavior-y: none;
+  }
+  ::selection { background: rgb(var(--accent) / 0.35); }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  * { scrollbar-width: thin; scrollbar-color: #2a3049 transparent; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: #2a3049; border-radius: 99px; border: 3px solid transparent; background-clip: content-box; }
+  ::-webkit-scrollbar-thumb:hover { background-color: #3a4166; }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/[0.08] bg-white/[0.045] backdrop-blur-xl;
+  }
+  .glass-strong {
+    @apply border border-white/10 bg-ink-900/75 backdrop-blur-2xl;
+  }
+  .text-gradient {
+    @apply bg-brand-gradient bg-clip-text text-transparent;
+  }
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-full font-semibold transition duration-200 active:scale-[.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-rain-400 px-6 py-3 text-sm text-ink-950 shadow-glow-rain hover:bg-rain-300;
+  }
+  .btn-ghost {
+    @apply btn border border-white/15 px-5 py-2.5 text-sm text-mist hover:border-white/30 hover:bg-white/5;
+  }
+  .icon-btn {
+    @apply inline-grid h-10 w-10 shrink-0 place-items-center rounded-full text-muted transition duration-200 hover:bg-white/[0.07] hover:text-mist active:scale-90;
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-muted transition hover:border-white/20 hover:bg-white/[0.08] hover:text-mist;
+  }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .mask-fade-x {
+    mask-image: linear-gradient(90deg, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+  }
+}
+
+/* Paused players freeze decorative motion instead of animating forever. */
+[data-playing='false'] .anim-when-playing { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
